@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Scientific Inquiry & Market Research Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Nunito & Segoe UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montanoBlue: '#1269A8',
+                        montanoYellow: '#F7D615',
+                        montanoTeal: '#54887D',
+                        montanoLightBlue: '#88B5C7',
+                        montanoOlive: '#A6B046',
+                        montanoBg: '#F2F5E9',
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'Tahoma', 'Verdana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F2F5E9;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+        }
+        .whiteboard-frame {
+            background: #ffffff;
+            border: 4px solid #d1d5db;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F2F5E9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1269A8;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 p-2 sm:p-6">
+
+    <!-- App Container / Whiteboard Frame -->
+    <div id="appContainer" class="whiteboard-frame max-w-7xl mx-auto flex flex-col min-h-[92vh] overflow-hidden transition-all duration-300">
+        
+        <!-- Header Section -->
+        <header class="bg-montanoBlue text-white p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between border-b-4 border-montanoYellow rounded-t-[16px]">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&amp;s" alt="Colegio Montano Logo" class="w-16 h-16 rounded-full bg-white p-1 object-cover shadow-md border-2 border-montanoYellow" onerror="this.src='https://placehold.co/80x80/1269A8/FFFFFF?text=CM'">
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-wide">COLEGIO MONTANO</h1>
+                    <p class="text-montanoYellow text-sm font-semibold">12th Grade Mercadotecnia | Psychology & Scientific Method (B2-C1 ESL)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <span class="bg-montanoTeal text-xs sm:text-sm px-3 py-1.5 rounded-full font-bold shadow text-white">Consumer Psychology & Inquiry</span>
+                <button onclick="toggleFullscreen()" class="bg-montanoYellow text-montanoBlue font-bold px-4 py-2 rounded-xl shadow-lg hover:bg-yellow-300 transition-transform active:scale-95 flex items-center space-x-2">
+                    <i class="fa-solid fa-expand"></i>
+                    <span class="hidden sm:inline">Fullscreen</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs Bar -->
+        <nav class="bg-montanoBg p-3 border-b border-gray-200 overflow-x-auto">
+            <div class="flex space-x-2 min-w-max">
+                <button onclick="switchTab(1)" id="tabBtn1" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-montanoBlue text-white shadow-md">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>1. Theory & Grammar</span>
+                </button>
+                <button onclick="switchTab(2)" id="tabBtn2" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>2. Solved Examples (15)</span>
+                </button>
+                <button onclick="switchTab(3)" id="tabBtn3" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    <span>3. Voice Simulator & Dashboard</span>
+                </button>
+                <button onclick="switchTab(4)" id="tabBtn4" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>4. Critical Reflection</span>
+                </button>
+                <button onclick="switchTab(5)" id="tabBtn5" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                    <span>5. Formative Evaluation (15)</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 sm:p-8 overflow-y-auto bg-white">
+            
+            <!-- TAB 1: THEORY & GRAMMAR -->
+            <div id="tabContent1" class="tab-pane space-y-6">
+                <div class="border-l-8 border-montanoBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-2">Guide 2: Hypotheses, Variables, and Research Design in Mercadotecnia</h2>
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+                        Welcome to Guide 2, 12th-grade marketing leaders! Building on our foundation of scientific inquiry, we now master how to construct testable hypotheses, isolate independent, dependent, and controlled variables, establish precise operational definitions, and select valid sampling methods for consumer psychology studies across our structured 70-minute lesson framework.
+                    </p>
+                </div>
+
+                <!-- 70-Minute Lesson Framework Banner -->
+                <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-bold text-lg text-montanoBlue mb-3 flex items-center">
+                        <i class="fa-solid fa-clock mr-2 text-montanoYellow"></i> Structured 70-Minute Lesson Framework (Guide 2)
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">5 min</span>
+                            <strong>Retrieval Practice:</strong> Reviewing prior inquiry steps.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoTeal block mb-1">15 min</span>
+                            <strong>Hypotheses:</strong> Developing predictions from RQs.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoOlive block mb-1">15 min</span>
+                            <strong>Variables:</strong> Independent, dependent & operational definitions.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">15 min</span>
+                            <strong>Sampling:</strong> Population, sample, random, convenience, purposive.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoTeal block mb-1">10 min</span>
+                            <strong>Consumer Application:</strong> Applying design to market scenarios.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoYellow block mb-1">10 min</span>
+                            <strong>Checkpoint:</strong> Short practice, feedback & Activity 1 due.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Concept Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 1</span>
+                                <i class="fa-solid fa-code-pull-request text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Hypothesis & Prediction</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                A tentative, testable statement predicting the relationship between consumer variables (e.g., "If ad color is blue, then purchase intent increases").
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Predictive Rigor</span>
+                                <span class="text-montanoTeal">96%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 2</span>
+                                <i class="fa-solid fa-sliders text-montanoTeal text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoTeal mb-2">Variables: IV, DV & Controlled</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                <strong>Independent (IV):</strong> Manipulated cause. <br><strong>Dependent (DV):</strong> Measured effect. <br><strong>Controlled:</strong> Kept constant to avoid confounding.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Experimental Control</span>
+                                <span class="text-montanoBlue">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoOlive text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 3</span>
+                                <i class="fa-solid fa-file-contract text-montanoOlive text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoOlive mb-2">Operational Definitions</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Clear, precise instructions on how abstract marketing concepts (e.g., "brand loyalty", "customer satisfaction") are measured in numbers or categories.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Measurability</span>
+                                <span class="text-montanoOlive">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoOlive h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 4</span>
+                                <i class="fa-solid fa-users text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Population & Sample</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                <strong>Population:</strong> The entire target group (e.g., all Guatemalan coffee consumers). <br><strong>Sample:</strong> The subset selected to participate in the study.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Generalizability</span>
+                                <span class="text-montanoTeal">89%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 89%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between md:col-span-2 lg:col-span-2">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Core Concept 5</span>
+                                <i class="fa-solid fa-network-wired text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Basic Sampling Methods</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-gray-700 mt-2">
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>1. Random Sampling:</strong> Every population member has an equal chance of selection.</div>
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>2. Convenience Sampling:</strong> Selecting readily available participants (e.g., local mall shoppers).</div>
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>3. Purposive Sampling:</strong> Hand-picking experts or specific consumer profiles based on study criteria.</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Sampling Validity</span>
+                                <span class="text-montanoBlue">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: SOLVED EXAMPLES (15) -->
+            <div id="tabContent2" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoTeal bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoTeal mb-1">Solved Hypotheses, Variables & Sampling Examples</h2>
+                        <p class="text-gray-700 text-sm">15 meticulously broken-down examples covering hypothesis formulation, identifying IV/DV/CV, operational definitions, population vs. sample, and sampling techniques with Text-to-Speech audio support.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterExamples('all')" class="px-3 py-1 rounded-lg bg-montanoTeal text-white text-xs font-bold">All</button>
+                        <button onclick="filterExamples('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterExamples('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterExamples('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Examples Container -->
+                <div id="examplesContainer" class="space-y-4">
+                    <!-- Javascript will render 15 examples here -->
+                </div>
+            </div>
+
+            <!-- TAB 3: LIVE INTERACTIVE VOICE SIMULATOR & DASHBOARD -->
+            <div id="tabContent3" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoOlive bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoOlive mb-1">Live Interactive Voice Simulator & Performance Dashboard (Guide 2)</h2>
+                    <p class="text-gray-700 text-sm">Step into a simulated market research design consultation with Research Director Carlos. Address the challenge: "Design a research study with IV, DV, and a sampling plan for a new beverage." Speak into your microphone or type your response. Real-time AI metrics evaluate your clarity, grammar, and professional etiquette!</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Simulator Interface (2 Cols) -->
+                    <div class="lg:col-span-2 bg-gray-50 border-2 border-montanoLightBlue rounded-2xl p-5 flex flex-col justify-between shadow-md">
+                        <div>
+                            <div class="flex items-center justify-between border-b pb-3 mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-montanoTeal text-white flex items-center justify-center font-bold text-lg shadow">RD</div>
+                                    <div>
+                                        <h4 class="font-bold text-montanoTeal">Carlos Mendoza (Research Director)</h4>
+                                        <span class="text-xs text-green-600 font-semibold flex items-center"><span class="w-2 h-2 rounded-full bg-green-500 inline-block mr-1.5 animate-pulse"></span> Active Session</span>
+                                    </div>
+                                </div>
+                                <button onclick="speakDialogue('Hello 12th-grade analyst. Let us design our study. State a testable hypothesis, identify your independent and dependent variables, and specify your sampling method.')" class="bg-montanoYellow text-montanoBlue p-2 rounded-xl text-sm font-bold shadow hover:bg-yellow-300 flex items-center space-x-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                    <span>Listen Prompt</span>
+                                </button>
+                            </div>
+
+                            <!-- Chat Dialogue Box -->
+                            <div id="simChatBox" class="bg-white rounded-xl p-4 h-64 overflow-y-auto border border-gray-200 space-y-3 mb-4 shadow-inner">
+                                <div class="flex items-start space-x-2">
+                                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                                    <div class="bg-teal-50 text-gray-800 p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%] border border-teal-100">
+                                        "Welcome! For our new organic energy drink, propose a formal <strong>hypothesis</strong>, define your <strong>independent and dependent variables</strong>, and state your <strong>sampling method</strong>."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Controls -->
+                        <div class="space-y-3">
+                            <div class="flex space-x-2">
+                                <input type="text" id="simUserInput" placeholder="Type your research design response in English..." class="flex-1 border-2 border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-montanoTeal">
+                                <button onclick="handleUserSimInput()" class="bg-montanoTeal text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-teal-700 transition-all flex items-center space-x-1">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Send</span>
+                                </button>
+                                <button onclick="toggleVoiceRecognition()" id="micBtn" class="bg-montanoBlue text-white px-4 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-sky-700 transition-all" title="Speech Recognition">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 italic text-center">Tip: Use B2-C1 research terms (independent variable, dependent variable, random sampling, operational definition, hypothesis).</p>
+                        </div>
+                    </div>
+
+                    <!-- Performance Dashboard (1 Col) -->
+                    <div class="bg-white border-2 border-montanoOlive rounded-2xl p-5 flex flex-col justify-between shadow-md space-y-4">
+                        <div>
+                            <h3 class="font-extrabold text-montanoOlive text-lg mb-3 flex items-center justify-between">
+                                <span>Live Performance Dashboard</span>
+                                <i class="fa-solid fa-chart-line"></i>
+                            </h3>
+                            
+                            <!-- Metric 1 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Pronunciation & Speech Clarity</span>
+                                    <span id="metricPronounceVal">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricPronounceBar" class="bg-montanoBlue h-3 rounded-full transition-all duration-500" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Topic / Grammar Accuracy</span>
+                                    <span id="metricGrammarVal">90%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricGrammarBar" class="bg-montanoTeal h-3 rounded-full transition-all duration-500" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3 -->
+                            <div class="mb-4">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Politeness & Expression Etiquette</span>
+                                    <span id="metricEtiquetteVal">95%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricEtiquetteBar" class="bg-montanoOlive h-3 rounded-full transition-all duration-500" style="width: 95%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Key Terms Detected -->
+                            <div class="mb-4">
+                                <h4 class="text-xs font-bold text-gray-600 uppercase tracking-wide mb-2">Key Terms Detected:</h4>
+                                <div id="keyTermsContainer" class="flex flex-wrap gap-1.5">
+                                    <span class="bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200">Hypothesis</span>
+                                    <span class="bg-montanoBg text-montanoBlue text-xs font-bold px-2.5 py-1 rounded-lg border border-blue-200">Variables</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Pedagogical Feedback Box -->
+                        <div class="bg-montanoBg border-2 border-montanoYellow rounded-xl p-3">
+                            <h5 class="text-xs font-extrabold text-montanoTeal uppercase mb-1 flex items-center">
+                                <i class="fa-solid fa-robot mr-1.5"></i> AI Pedagogical Feedback
+                            </h5>
+                            <p id="aiFeedbackText" class="text-xs text-gray-700 leading-relaxed">
+                                "Great engagement! Specify your independent and dependent variables clearly to ensure C1 research design proficiency."
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 4: CRITICAL REFLECTION QUESTIONS -->
+            <div id="tabContent4" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoLightBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Critical Reflection & Checkpoint</h2>
+                    <p class="text-gray-700 text-sm">Complete the research design dilemmas and submit your consumer research application checkpoint (Activity 1 due).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Reflection 1 -->
+                    <div class="bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Dilemma 1</span>
+                                <span class="text-xs text-gray-500">Operational Definitions & Confounding Variables</span>
+                            </div>
+                            <h3 class="font-bold text-montanoTeal text-base mb-2">Measuring Consumer Loyalty</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                A researcher states: <em>"We measured customer loyalty by asking people if they liked our brand."</em> 
+                                <br><br><strong>Task:</strong> Critically evaluate why this lacks a robust operational definition. How would you operationally define and measure "customer loyalty" more scientifically using behavioral metrics?
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput1" rows="4" placeholder="Write your critical reflection here (minimum 40 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoTeal mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount1" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(1)" class="bg-montanoTeal text-white text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-teal-700">Save Reflection</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reflection 2: Checkpoint & Activity 1 -->
+                    <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Checkpoint (Activity 1 Due)</span>
+                                <span class="text-xs text-gray-500">Consumer Research Design Application</span>
+                            </div>
+                            <h3 class="font-bold text-montanoBlue text-base mb-2">Complete Study Blueprint</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                As the concluding task for Guide 2, submit your complete research blueprint: <strong>1. Testable Hypothesis</strong>, <strong>2. Independent & Dependent Variables</strong>, <strong>3. Operational Definitions</strong>, and <strong>4. Sampling Method</strong> for your chosen market product.
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput2" rows="4" placeholder="Draft your complete study blueprint here (minimum 35 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoYellow mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount2" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(2)" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300">Submit Activity 1 Checkpoint</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 5: FORMATIVE EVALUATION (15 PROBLEMS) -->
+            <div id="tabContent5" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoYellow bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Formative Evaluation (15 Problems - Guide 2)</h2>
+                        <p class="text-gray-700 text-sm">Test your mastery of hypotheses, variables, operational definitions, population, sample, and sampling methods across 3 difficulty levels.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterEvaluation('all')" class="px-3 py-1 rounded-lg bg-montanoBlue text-white text-xs font-bold">All (15)</button>
+                        <button onclick="filterEvaluation('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterEvaluation('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterEvaluation('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Evaluation Container -->
+                <div id="evaluationContainer" class="space-y-4">
+                    <!-- Javascript will render 15 evaluation problems here -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-montanoBg p-4 border-t border-gray-200 text-center text-xs text-gray-600 rounded-b-[16px]">
+            Colegio Montano Educational Portal &bull; Advanced 12th Grade Mercadotecnia Department &bull; Guide 2: Hypotheses, Variables & Research Design
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    showMsg("Error attempting to enable fullscreen: " + err.message);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Custom Message Box (Replacing alert)
+        function showMsg(message) {
+            const existingModal = document.getElementById('customAlertModal');
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement('div');
+            modal.id = 'customAlertModal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border-4 border-montanoBlue text-center">
+                    <div class="text-montanoBlue text-3xl mb-3"><i class="fa-solid fa-circle-info"></i></div>
+                    <h3 class="font-extrabold text-lg text-gray-800 mb-2">Colegio Montano Notice</h3>
+                    <p class="text-sm text-gray-600 mb-5">${message}</p>
+                    <button onclick="document.getElementById('customAlertModal').remove()" class="bg-montanoBlue text-white px-6 py-2 rounded-xl font-bold text-sm shadow hover:bg-sky-700 w-full">Understood</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabNum) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-montanoBlue', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-gray-700', 'shadow-sm');
+            });
+
+            document.getElementById(`tabContent${tabNum}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabBtn${tabNum}`);
+            activeBtn.classList.remove('bg-white', 'text-gray-700', 'shadow-sm');
+            activeBtn.classList.add('bg-montanoBlue', 'text-white', 'shadow-md');
+        }
+
+        // Text-to-Speech function
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showMsg("Text-to-speech is not supported in your browser.");
+            }
+        }
+
+        function speakDialogue(text) {
+            speakText(text);
+        }
+
+        // 15 Solved Examples Data (Guide 2: Hypotheses, Variables & Research Design)
+        const solvedExamplesData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', title: 'Retrieval Practice: Connecting Research Questions to Predictions', desc: 'Reviewing Guide 1 research questions to formulate testable predictions.', breakdown: '<strong>Prediction:</strong> A specific statement of expected outcomes based on prior consumer research questions.' },
+            { id: 2, level: 'basic', title: 'Formulating a Directional Hypothesis', desc: 'Research Question: "Does organic labeling affect snack sales?" &rarr; Hypothesis formulation.', breakdown: '<strong>Hypothesis:</strong> "If snack packaging features an organic certification badge, then consumer purchase intent scores will be significantly higher than plain packaging."' },
+            { id: 3, level: 'basic', title: 'Identifying the Independent Variable (IV)', desc: 'An experiment tests three different discount levels (10%, 20%, 50%) on online shoe sales.', breakdown: '<strong>Independent Variable (IV):</strong> The discount percentage manipulated by the researcher.' },
+            { id: 4, level: 'basic', title: 'Identifying the Dependent Variable (DV)', desc: 'Measuring customer willingness to pay and total units purchased after showing a video ad.', breakdown: '<strong>Dependent Variable (DV):</strong> Total units purchased and willingness-to-pay score measured as the outcome.' },
+            { id: 5, level: 'basic', title: 'Defining Controlled Variables', desc: 'Ensuring all survey respondents see the exact same lighting, font size, and product description in an online test.', breakdown: '<strong>Controlled Variables:</strong> Extraneous factors kept constant so they do not confound the experiment.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', title: 'Creating an Operational Definition for "Brand Trust"', desc: 'Translating the abstract psychological concept of brand trust into a measurable metric.', breakdown: '<strong>Operational Definition:</strong> Brand trust is measured as the score (1-10) on a validated 5-item consumer reliability survey.' },
+            { id: 7, level: 'intermediate', title: 'Distinguishing Population and Sample in Retail Research', desc: 'Studying smartphone preferences among university students in Guatemala.', breakdown: '<strong>Population:</strong> All university students in Guatemala.<br><strong>Sample:</strong> 300 randomly selected Colegio Montano university-track seniors.' },
+            { id: 8, level: 'intermediate', title: 'Applying Random Sampling in a Consumer Survey', desc: 'Selecting participants from a customer database using a computer random number generator.', breakdown: '<strong>Random Sampling:</strong> Ensures every customer has an equal probability of selection, reducing sampling bias.' },
+            { id: 9, level: 'intermediate', title: 'Utilizing Convenience Sampling in Mall Intercepts', desc: 'Surveying the first 50 shoppers who walk past a store entrance on Saturday morning.', breakdown: '<strong>Convenience Sampling:</strong> Fast and accessible, though carries higher risk of selection bias than random sampling.' },
+            { id: 10, level: 'intermediate', title: 'Implementing Purposive Sampling for Luxury Goods', desc: 'Hand-picking experienced luxury watch collectors for a specialized focus group.', breakdown: '<strong>Purposive Sampling:</strong> Intentionally selecting participants with expert knowledge relevant to the study objectives.' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', title: 'Complex Multi-Variable Experimental Design', desc: 'Investigating the interaction between ad tone (humorous vs. serious) and price level on brand recall.', breakdown: '<strong>Design:</strong> 2x2 factorial design with two Independent Variables (Ad Tone and Price Level) and one Dependent Variable (Brand Recall).' },
+            { id: 12, level: 'advanced', title: 'Operationalizing Complex Psychological Constructs', desc: 'Operationalizing "impulse buying tendency" for online shoppers.', breakdown: '<strong>Operational Definition:</strong> Number of unscripted non-essential items added to cart within a 10-minute browsing session.' },
+            { id: 13, level: 'advanced', title: 'Controlling Confounding Psychological Biases', desc: 'Preventing order effect bias when testing two competing logo designs on the same participant.', breakdown: '<strong>Control:</strong> Counterbalancing logo presentation order (half see Logo A first, half see Logo B first).' },
+            { id: 14, level: 'advanced', title: 'Evaluating Sampling Error and Generalizability', desc: 'Analyzing why a sample of 20 teenage gamers cannot generalize to retired adults buying insurance.', breakdown: '<strong>Evaluation:</strong> Sample demographic mismatch destroys external validity and generalizability.' },
+            { id: 15, level: 'advanced', title: 'Structuring the Complete Study Blueprint (Activity 1 Checkpoint)', desc: 'Synthesizing hypothesis, IV, DV, operational definitions, and sampling method into a unified research proposal.', breakdown: '<strong>Blueprint Synthesis:</strong> Comprehensive alignment of all design elements to ensure high academic rigor and C1 ESL proficiency.' }
+        ];
+
+        function renderExamples(filter = 'all') {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? solvedExamplesData : solvedExamplesData.filter(ex => ex.level === filter);
+
+            filtered.forEach(ex => {
+                const badgeColor = ex.level === 'basic' ? 'bg-montanoBlue' : ex.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Example ${ex.id} (${ex.level})</span>
+                            <h3 class="font-bold text-gray-800 text-sm sm:text-base">${ex.title}</h3>
+                        </div>
+                        <button onclick="speakText('${ex.title}. ${ex.desc}. Breakdown: ${ex.breakdown.replace(/<[^>]*>?/gm, '')}')" class="text-montanoBlue hover:text-sky-700 p-2 text-lg" title="Listen to Example Audio">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-600 mb-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <strong>Scenario:</strong> ${ex.desc}
+                    </p>
+                    <div class="text-xs sm:text-sm text-gray-700 bg-montanoBg p-3 rounded-xl border border-blue-100">
+                        <strong>Scientific Breakdown:</strong> ${ex.breakdown}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterExamples(level) {
+            renderExamples(level);
+        }
+
+        // Live Voice Simulator & AI Dashboard Logic
+        let simHistory = [];
+        function handleUserSimInput() {
+            const input = document.getElementById('simUserInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendChatBubble('You', text, 'bg-montanoTeal text-white', 'ml-auto');
+            input.value = '';
+
+            // Simulate AI evaluation update
+            updateDashboardMetrics(text);
+
+            // Simulate Research Director response after 1 second
+            setTimeout(() => {
+                let rdReply = "Good proposal! Make sure your operational definitions specify exact measurements and your sampling method is clearly stated.";
+                if (text.toLowerCase().includes('hypothesis') || text.toLowerCase().includes('variable') || text.toLowerCase().includes('sampling')) {
+                    rdReply = "Excellent research design! Your integration of hypotheses, variables, and sampling meets C1 executive standards. Study approved!";
+                }
+                appendChatBubble('RD', rdReply, 'bg-teal-50 text-gray-800 border border-teal-100', '');
+                speakText(rdReply);
+            }, 1000);
+        }
+
+        function appendChatBubble(sender, text, styleClass, alignClass) {
+            const chatBox = document.getElementById('simChatBox');
+            const bubble = document.createElement('div');
+            bubble.className = `flex items-start space-x-2 ${alignClass}`;
+            
+            if (sender === 'RD') {
+                bubble.innerHTML = `
+                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%]">${text}</div>
+                `;
+            } else {
+                bubble.innerHTML = `
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%]">${text}</div>
+                    <div class="bg-montanoOlive text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">You</div>
+                `;
+            }
+            chatBox.appendChild(bubble);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function updateDashboardMetrics(userText) {
+            const len = userText.length;
+            const pScore = Math.min(98, Math.max(75, 80 + Math.floor(len / 5)));
+            const gScore = Math.min(99, Math.max(80, 85 + (userText.includes('hypothesis') || userText.includes('variable') ? 10 : 0)));
+            const eScore = Math.min(100, Math.max(90, 92 + (userText.toLowerCase().includes('please') || userText.toLowerCase().includes('thank') || len > 30 ? 5 : 0)));
+
+            document.getElementById('metricPronounceVal').innerText = pScore + '%';
+            document.getElementById('metricPronounceBar').style.width = pScore + '%';
+
+            document.getElementById('metricGrammarVal').innerText = gScore + '%';
+            document.getElementById('metricGrammarBar').style.width = gScore + '%';
+
+            document.getElementById('metricEtiquetteVal').innerText = eScore + '%';
+            document.getElementById('metricEtiquetteBar').style.width = eScore + '%';
+
+            // Detect key terms
+            const termsContainer = document.getElementById('keyTermsContainer');
+            const keywords = ['hypothesis', 'variable', 'independent', 'dependent', 'operational', 'sampling', 'random', 'population', 'sample'];
+            keywords.forEach(kw => {
+                if (userText.toLowerCase().includes(kw) && !termsContainer.innerHTML.includes(kw)) {
+                    const tag = document.createElement('span');
+                    tag.className = 'bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200 capitalize';
+                    tag.innerText = kw;
+                    termsContainer.appendChild(tag);
+                }
+            });
+
+            const feedbackElem = document.getElementById('aiFeedbackText');
+            if (gScore > 90) {
+                feedbackElem.innerText = '"Outstanding C1 research design proficiency! Your mastery of variables and sampling is exemplary."';
+            } else {
+                feedbackElem.innerText = '"Good effort! Try including specific terms like \'independent variable\' and \'random sampling\' to maximize your score."';
+            }
+        }
+
+        // Web Speech Recognition integration
+        function toggleVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showMsg("Speech Recognition API is not supported in your browser. Please use Chrome or Edge.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            const micBtn = document.getElementById('micBtn');
+            micBtn.classList.add('bg-red-500', 'animate-pulse');
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                document.getElementById('simUserInput').value = speechResult;
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                handleUserSimInput();
+            };
+
+            recognition.onerror = function(event) {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                showMsg("Voice recognition error occurred. Please type your answer.");
+            };
+
+            recognition.onend = function() {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+            };
+
+            recognition.start();
+        }
+
+        // Reflection word counters and save
+        document.addEventListener('DOMContentLoaded', () => {
+            ['1', '2'].forEach(id => {
+                const textarea = document.getElementById(`refInput${id}`);
+                const counter = document.getElementById(`wordCount${id}`);
+                textarea.addEventListener('input', () => {
+                    const words = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
+                    counter.innerText = words + ' words';
+                });
+            });
+
+            renderExamples('all');
+            renderEvaluation('all');
+        });
+
+        function saveReflection(id) {
+            const val = document.getElementById(`refInput${id}`).value.trim();
+            const words = val ? val.split(/\s+/).length : 0;
+            if (words < 15) {
+                showMsg("Please write a more comprehensive reflection (at least 15 words) demonstrating critical analysis.");
+                return;
+            }
+            if (id === 2) {
+                showMsg("Activity 1 Checkpoint successfully submitted! Your research study blueprint has been recorded for your Colegio Montano portfolio.");
+            } else {
+                showMsg(`Reflection ${id} successfully saved and submitted to your Colegio Montano portfolio!`);
+            }
+        }
+
+        // 15 Formative Evaluation Problems Data (Guide 2)
+        const evaluationData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', q: 'What is a scientific hypothesis in consumer research?', options: ['A) A random guess without any basis', 'B) A tentative, testable prediction regarding the relationship between variables', 'C) A finalized business invoice', 'D) A customer complaint letter'], answer: 'B', explanation: 'A hypothesis is a testable prediction guiding empirical investigation.' },
+            { id: 2, level: 'basic', q: 'In an experiment testing how ad color affects click-through rates, what is the Independent Variable (IV)?', options: ['A) The click-through rate', 'B) The ad color manipulated by the researcher', 'C) The office temperature', 'D) The company revenue'], answer: 'B', explanation: 'The IV is the cause manipulated by the researcher (ad color).' },
+            { id: 3, level: 'basic', q: 'What is the Dependent Variable (DV) in consumer psychology experiments?', options: ['A) The variable manipulated by the experimenter', 'B) The measured outcome or behavioral response of the consumer', 'C) The room lighting', 'D) The researcher\'s opinion'], answer: 'B', explanation: 'The DV is the measured effect or outcome.' },
+            { id: 4, level: 'basic', q: 'Why are operational definitions essential in market research?', options: ['A) They make reports look longer', 'B) They clearly define abstract concepts into measurable, concrete terms', 'C) They eliminate the need for data collection', 'D) They increase advertising costs'], answer: 'B', explanation: 'Operational definitions specify exact measurements for abstract concepts.' },
+            { id: 5, level: 'basic', q: 'What is the difference between a population and a sample?', options: ['A) Population is the entire target group; sample is the subset selected for the study.', 'B) Population is smaller than a sample.', 'C) There is no difference.', 'D) Samples include every single person in a country.'], answer: 'A', explanation: 'The population is the whole group; the sample is the subset participating in the study.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', q: 'Which sampling method ensures every member of the target population has an equal chance of being selected?', options: ['A) Convenience sampling', 'B) Purposive sampling', 'C) Random sampling', 'D) Accidental sampling'], answer: 'C', explanation: 'Random sampling gives every population member an equal probability of selection.' },
+            { id: 7, level: 'intermediate', q: 'When would a researcher use convenience sampling?', options: ['A) When they need absolute mathematical perfection across a national census', 'B) When quick, easily accessible participants are needed for preliminary testing', 'C) When studying secretive corporate CEOs', 'D) Never'], answer: 'B', explanation: 'Convenience sampling relies on readily available participants for rapid assessment.' },
+            { id: 8, level: 'intermediate', q: 'What is the primary purpose of controlled variables in experimental design?', options: ['A) To confuse participants', 'B) To prevent confounding variables from distorting the relationship between IV and DV', 'C) To increase study expenses', 'D) To shorten survey duration'], answer: 'B', explanation: 'Controlled variables keep extraneous factors constant to maintain internal validity.' },
+            { id: 9, level: 'intermediate', q: 'What characterizes purposive sampling?', options: ['A) Selecting participants at random from a phone book', 'B) Hand-picking participants who possess specific expert characteristics relevant to the research', 'C) Surveying anyone walking past a random street', 'D) Ignoring demographic data'], answer: 'B', explanation: 'Purposive sampling deliberately targets individuals with specific expertise or traits.' },
+            { id: 10, level: 'intermediate', q: 'Which of the following is a well-operationalized definition of "customer satisfaction"?', options: ['A) Customers feeling happy inside', 'B) A score of 4 or higher on a 5-point Likert post-purchase survey scale', 'C) Customers smiling at cashiers', 'D) Brand loyalty in general'], answer: 'B', explanation: 'Option B provides an exact, measurable scale (4+ on 5-point Likert scale).' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', q: 'In a complex 2x2 factorial design study, what is the advantage of having multiple independent variables?', options: ['A) It reduces data accuracy', 'B) It allows researchers to examine both individual and interactive effects of multiple factors on consumer behavior', 'C) It eliminates the need for hypotheses', 'D) It simplifies statistical analysis completely'], answer: 'B', explanation: 'Factorial designs reveal interactive effects between multiple IVs.' },
+            { id: 12, level: 'advanced', q: 'What is the primary risk of sampling bias when studying global luxury consumers?', options: ['A) Results will generalize perfectly to all humans', 'B) The sample may not represent the broader population, destroying external validity', 'C) Statistical tests will fail automatically', 'D) Surveys will take less time'], answer: 'B', explanation: 'Sampling bias creates non-representative samples, invalidating generalizability.' },
+            { id: 13, level: 'advanced', q: 'How does counterbalancing protect against confounding order effects in experiments?', options: ['A) By changing product prices mid-study', 'B) By varying the presentation order of experimental conditions across participants so order doesn\'t bias outcomes', 'C) By deleting half the data', 'D) By paying participants more money'], answer: 'B', explanation: 'Counterbalancing distributes order effects evenly across test conditions.' },
+            { id: 14, level: 'advanced', q: 'When evaluating a student study blueprint for Activity 1, what confirms C1 mastery of variables?', options: ['A) Vague descriptions of marketing goals', 'B) Explicit identification of IV, DV, operational definitions, and control measures', 'C) Listing company employee names', 'D) Avoiding quantitative metrics'], answer: 'B', explanation: 'C1 mastery requires precise technical specification of variables and controls.' },
+            { id: 15, level: 'advanced', q: 'Why must operational definitions be both reliable and valid in psychological research?', options: ['A) To ensure measurements consistently capture the true psychological construct without error', 'B) To make research papers longer', 'C) To satisfy accounting departments', 'D) To eliminate the need for peer review'], answer: 'A', explanation: 'Reliability and validity guarantee accurate, consistent measurement of psychological phenomena.' }
+        ];
+
+        function renderEvaluation(filter = 'all') {
+            const container = document.getElementById('evaluationContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? evaluationData : evaluationData.filter(ev => ev.level === filter);
+
+            filtered.forEach(ev => {
+                const badgeColor = ev.level === 'basic' ? 'bg-montanoBlue' : ev.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm space-y-3';
+                
+                let optionsHtml = '';
+                ev.options.forEach(opt => {
+                    optionsHtml += `<label class="block text-xs sm:text-sm text-gray-700 bg-gray-50 p-2.5 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition-all"><input type="radio" name="evalQ_${ev.id}" value="${opt[0]}" class="mr-2 accent-montanoTeal"> ${opt}</label>`;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Problem ${ev.id} (${ev.level})</span>
+                        <button onclick="speakText('${ev.q}')" class="text-montanoTeal hover:text-teal-700 text-sm" title="Listen to Question"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    <p class="font-bold text-gray-800 text-sm sm:text-base">${ev.q}</p>
+                    <div class="space-y-2">${optionsHtml}</div>
+                    
+                    <div class="flex justify-between items-center pt-2">
+                        <button onclick="toggleSolution(${ev.id})" id="solBtn_${ev.id}" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300 transition-transform active:scale-95">
+                            <i class="fa-solid fa-eye mr-1"></i> Show Solution
+                        </button>
+                        <span id="evalFeedback_${ev.id}" class="text-xs font-bold"></span>
+                    </div>
+
+                    <div id="solutionBox_${ev.id}" class="hidden bg-montanoBg p-4 rounded-xl border border-blue-200 text-xs sm:text-sm text-gray-700 space-y-1 mt-2">
+                        <p class="font-bold text-montanoBlue">Correct Answer: Option ${ev.answer}</p>
+                        <p><strong>Explanation:</strong> ${ev.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterEvaluation(level) {
+            renderEvaluation(level);
+        }
+
+        function toggleSolution(id) {
+            const solBox = document.getElementById(`solutionBox_${id}`);
+            const btn = document.getElementById(`solBtn_${id}`);
+            if (solBox.classList.contains('hidden')) {
+                solBox.classList.remove('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye-slash mr-1"></i> Hide Solution';
+                btn.classList.remove('bg-montanoYellow');
+                btn.classList.add('bg-gray-300', 'text-gray-800');
+            } else {
+                solBox.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye mr-1"></i> Show Solution';
+                btn.classList.remove('bg-gray-300', 'text-gray-800');
+                btn.classList.add('bg-montanoYellow');
+            }
+        }
+    </script>
+</body>
+</html>
